@@ -7,7 +7,7 @@
   home.homeDirectory = "/home/azureuser";
 
   home.stateVersion = "24.11"; # Please read the comment before changing.
-
+	home.enableNixpkgsReleaseCheck = false;
   # Install all requested tools and fonts
   home.packages = with pkgs; [
     fish
