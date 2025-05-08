@@ -56,7 +56,7 @@
         uvv = "uv_venv";
         uvva = "uv_env_activate";
         
-        cr = "code -r .";
+        coder = "code -r .";
         cl = "clear";
         e = "exit";
         l = "ls -l";
