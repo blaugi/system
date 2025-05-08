@@ -56,7 +56,7 @@
         uvv = "uv_venv";
         uvva = "uv_env_activate";
         
-
+        cr = "code -r .";
         cl = "clear";
         e = "exit";
         l = "ls -l";
@@ -134,21 +134,12 @@
 
         y =
         '' 
-            if test (count $argv) -lt 1
-                echo "Usage: uv_remove_env <ENV_NAME>"
-                return 1
+          set tmp (mktemp -t "yazi-cwd.XXXXXX")
+              yazi $argv --cwd-file="$tmp"
+              if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+              builtin cd -- "$cwd"
             end
-
-            set ENV_NAME $argv[1]
-            set ENV_PATH "/uv_envs/$ENV_NAME"
-
-            if test -d "$ENV_PATH"
-                sudo rm -rf "$ENV_PATH"
-                echo "Virtual environment removed: $ENV_NAME"
-            else
-                echo "Error: Virtual environment '$ENV_NAME' not found at $ENV_PATH"
-                return 1
-            end
+            rm -f -- "$tmp"
         ''; 
 
 
