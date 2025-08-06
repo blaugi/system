@@ -70,16 +70,15 @@
     functions = {
         uv_venv = 
         ''
-            if test (count $argv) -lt 2
-                echo "Usage: uv_venv <ENV_NAME> <PYTHON_VERSION>"
+            if test (count $argv) -lt 1
+                echo "Usage: uv_venv <ENV_NAME>"
                 return 1
             end
 
             set ENV_NAME $argv[1]
-            set PYTHON_VERSION $argv[2]
             set ENV_PATH "/uv_envs/$ENV_NAME"
 
-            uv venv "$ENV_PATH" --python="$PYTHON_VERSION"
+            uv venv "$ENV_PATH" 
 
             if test $status -eq 0
                 echo "Virtual environment created at $ENV_PATH"
