@@ -1,170 +1,154 @@
 { pkgs }:
-
 {
   enable = true;
 
-    shellAliases ={
-        ls = "eza --icons --grid --classify --colour=auto --sort=type --group-directories-first --header --modified --created --git --binary --group";
-        l = "eza";
-        la = "ls -a";
-        ll = "ls -lah"; 
-    };
+  shellAliases = {
+    ls = "eza --icons --grid --classify --colour=auto --sort=type --group-directories-first --header --modified --created --git --binary --group";
+    l = "eza";              # Keep only one definition of 'l'
+    la = "ls -a";
+    ll = "ls -lah";
+    yz = "yazi";
+    n = "nvim";
+    lg = "lazygit";
+    cl = "clear";
+    e = "exit";
+  };
 
+  shellAbbrs = {
+    g = "git";
+    ga = "git add";
+    gaa = "git add --all";
+    gapp = "git apply";
+    gb = "git branch --verbose";
+    gbr = "git branch --verbose --remotes";
+    gbd = "git branch --delete";
+    gbD = "git branch --delete --force";
+    gc = "git commit -m";
+    gca = "git commit --amend";
+    gcl = "git clone";
+    gco = "git checkout";
+    gcot = "git checkout --theirs";
+    gd = "git diff";
+    gds = "git diff --staged";
+    gf = "git fetch";
+    gi = "git init";
+    gP = "git push";
+    gp = "git pull";
+    gr = "git reset HEAD~";
+    gR = "git restore";
+    gra = "git remote add";
+    gre = "git remote --verbose";
+    gs = "git status";
 
-    shellAbbrs = {
-        g = "git";
-        ga = "git add";
-        gaa = "git add --all";
-        gapp = "git apply";
-        gb = "git branch --verbose";
-        gbr = "git branch --verbose --remotes";
-        gbd = "git branch --delete";
-        gbD = "git branch --delete --force";
-        gc = "git commit -m";
-        gca = "git commit --amend";
-        gcl = "git clone";
-        gco = "git checkout";
-        gcot = "git checkout --theirs";
-        gd = "git diff";
-        gds = "git diff --staged";
-        gf = "git fetch";
-        gi = "git init";
-        gP = "git push";
-        gp = "git pull";
-        gr = "git reset HEAD~";
-        gR = "git restore";
-        gra = "git remote add";
-        gre = "git remote --verbose";
-        gs = "git status";
+    ca = "cargo add";
+    cab = "cargo add --build";
+    cad = "cargo add --dev";
+    cb = "cargo build";
+    cr = "cargo run";
+    ct = "cargo test";
+    crm = "cargo remove";
+    crmb = "cargo remove --build";
+    crmd = "cargo remove --dev";
+    cc = "cargo clippy";
+    cf = "cargo fmt";
 
-        yz = "yazi";
+    uva = "uv_add";
+    uvv = "uv_venv";
+    uvva = "uv_env_activate";
 
-        ca = "cargo add";
-        cab = "cargo add --build";
-        cad = "cargo add --dev";
-        cb = "cargo build";
-        cr = "cargo run";
-        ct = "cargo test";
-        crm = "cargo remove";
-        crmb = "cargo remove --build";
-        crmd = "cargo remove --dev";
-        cc = "cargo clippy";
-        cf = "cargo fmt";
+    coder = "code -r .";
+    t = "tree";
+  };
 
+  functions = {
+    uv_venv = ''
+      if test (count $argv) -lt 1
+        echo "Usage: uv_venv <ENV_NAME>"
+        return 1
+      end
+      set ENV_NAME $argv[1]
+      set ENV_PATH "/home/azureuser/localfiles/uv_venvs/$ENV_NAME"
+      uv venv "$ENV_PATH"
+      if test $status -eq 0
+        echo "Virtual environment created at $ENV_PATH"
+      else
+        echo "Failed to create virtual environment."
+        return 1
+      end
+    '';
 
-        uva = "uv_add";
-        uvv = "uv_venv";
-        uvva = "uv_env_activate";
-        
-        coder = "code -r .";
-        cl = "clear";
-        e = "exit";
-        l = "ls -l";
-        n = "nvim";
-        t = "tree";     
-        lg="lazygit";
-    };
+    uv_add = ''
+      uv add --active $argv
+    '';
 
+    uv_env_activate = ''
+      if test (count $argv) -lt 1
+        echo "Usage: uv_env_activate <ENV_NAME>"
+        return 1
+      end
+      set ENV_NAME $argv[1]
+      set ENV_PATH "/home/azureuser/localfiles/uv_venvs/$ENV_NAME/bin/activate.fish"
+      if test -f "$ENV_PATH"
+        source "$ENV_PATH"
+        echo "Activated virtual environment: $ENV_NAME"
+      else
+        echo "Error: Virtual environment '$ENV_NAME' not found at $ENV_PATH"
+        return 1
+      end
+    '';
 
+    uv_remove_env = ''
+      if test (count $argv) -lt 1
+        echo "Usage: uv_remove_env <ENV_NAME>"
+        return 1
+      end
+      set ENV_NAME $argv[1]
+      set ENV_PATH "/home/azureuser/localfiles/uv_venvs/$ENV_NAME"
+      if test -d "$ENV_PATH"
+        sudo rm -rf "$ENV_PATH"
+        echo "Virtual environment removed: $ENV_NAME"
+      else
+        echo "Error: Virtual environment '$ENV_NAME' not found at $ENV_PATH"
+        return 1
+      end
+    '';
 
-    functions = {
-        uv_venv = 
-        ''
-            if test (count $argv) -lt 1
-                echo "Usage: uv_venv <ENV_NAME>"
-                return 1
-            end
+    y = ''
+      set tmp (mktemp -t "yazi-cwd.XXXXXX")
+      yazi $argv --cwd-file="$tmp"
+      if set cwd (command cat -- "$tmp"); and test -n "$cwd"; and test "$cwd" != "$PWD"
+        builtin cd -- "$cwd"
+      end
+      rm -f -- "$tmp"
+    '';
+  };
 
-            set ENV_NAME $argv[1]
-            set ENV_PATH "/uv_envs/$ENV_NAME"
-
-            uv venv "$ENV_PATH" 
-
-            if test $status -eq 0
-                echo "Virtual environment created at $ENV_PATH"
-            else
-                echo "Failed to create virtual environment."
-                return 1
-            end
-        '';
-
-        uv_add =
-        '' 
-            uv add --active $argv
-        ''; 
-
-        uv_env_activate =
-        '' 
-            if test (count $argv) -lt 1
-                echo "Usage: uv_env_activate <ENV_NAME>"
-                return 1
-            end
-
-            set ENV_NAME $argv[1]
-            set ENV_PATH "/uv_envs/$ENV_NAME/bin/activate.fish"
-
-            if test -f "$ENV_PATH"
-                source "$ENV_PATH"
-                echo "Activated virtual environment: $ENV_NAME"
-            else
-                echo "Error: Virtual environment '$ENV_NAME' not found at $ENV_PATH"
-                return 1
-            end
-        ''; 
-
-        uv_remove_env =
-        '' 
-            if test (count $argv) -lt 1
-                echo "Usage: uv_remove_env <ENV_NAME>"
-                return 1
-            end
-
-            set ENV_NAME $argv[1]
-            set ENV_PATH "/uv_envs/$ENV_NAME"
-
-            if test -d "$ENV_PATH"
-                sudo rm -rf "$ENV_PATH"
-                echo "Virtual environment removed: $ENV_NAME"
-            else
-                echo "Error: Virtual environment '$ENV_NAME' not found at $ENV_PATH"
-                return 1
-            end
-        ''; 
-
-        y =
-        '' 
-          set tmp (mktemp -t "yazi-cwd.XXXXXX")
-              yazi $argv --cwd-file="$tmp"
-              if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-              builtin cd -- "$cwd"
-            end
-            rm -f -- "$tmp"
-        ''; 
-
-
-
-    };
-
-    interactiveShellInit = ''
-    # >>> conda initialize >>>
-    # !! Contents within this block are managed by 'conda init' !!
-    if test -f /anaconda/bin/conda
-        eval /anaconda/bin/conda "shell.fish" "hook" $argv | source
-    else
-        if test -f "/anaconda/etc/fish/conf.d/conda.fish"
-            . "/anaconda/etc/fish/conf.d/conda.fish"
-        else
-            set -x PATH "/anaconda/bin" $PATH
-        end
+  # Ensures Nix env present even if system fish conf.d not loaded first.
+  loginShellInit = ''
+    if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+      source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+    else if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      command -q bass; and bass source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     end
-    # <<< conda initialize <<<
+  '';
 
-    zoxide init fish --cmd cd | source
-
-    function starship_transient_prompt_func
-      starship module character
+  shellInit = ''
+    # Home Manager env vars
+    set -l hmvars "$HOME/.nix-profile/etc/profile.d/hm-session-vars.fish"
+    if test -f $hmvars
+      source $hmvars
     end
-    starship init fish | source
-    enable_transience
+
+    set -gx CONDA_AUTO_ACTIVATE_BASE false
+    set -gx CONDA_ROOT /anaconda
+    if test -f $CONDA_ROOT/etc/fish/conf.d/conda.fish
+      source $CONDA_ROOT/etc/fish/conf.d/conda.fish
+    else if test -x $CONDA_ROOT/bin/conda
+      eval ($CONDA_ROOT/bin/conda shell.fish hook)
+    end
+  '';
+
+  interactiveShellInit = ''
+    # Starship handled by HM
   '';
 }

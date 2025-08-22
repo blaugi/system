@@ -1,16 +1,24 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "azureuser";
   home.homeDirectory = "/home/azureuser";
 
-  home.stateVersion = "24.11"; # Please read the comment before changing.
-	home.enableNixpkgsReleaseCheck = false;
-  # Install all requested tools and fonts
+  # Use the current released HM state version you installed. Change only after reading docs.
+  home.stateVersion = "24.05";
+  home.enableNixpkgsReleaseCheck = false;
+
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
+
   home.packages = with pkgs; [
+    uv
     fish
+    neovim
     lazygit
     bat
     zoxide
@@ -18,20 +26,17 @@
     yazi
     eza
     nerd-fonts.commit-mono
-  ]; 
+  ];
 
   fonts.fontconfig.enable = true;
 
-  # Import the fish shell setup from a separate nix file
   programs.fish = import ./fish.nix { inherit pkgs; };
 
   programs.zoxide = {
-      enable = true;
-      options = [
-        "--cmd"
-        "c"
-      ];
-    };
+    enable = true;
+    enableFishIntegration = true;
+    options = [ "--cmd" "cd" ];
+  };
 
   programs.starship = {
     enable = true;
@@ -39,17 +44,16 @@
   };
 
   programs.bat.enable = true;
+  programs.yazi.enable = true;
 
   xdg.configFile."lazygit/config.yml".text = ''
     # Put your lazygit config here
   '';
 
-  programs.yazi = {
-    enable = true;
-  };
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'
-
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  home.sessionPath = [
+    "$HOME/.nix-profile/bin"
+    "/nix/profile/bin"
+  ];
 }
+
