@@ -25,6 +25,11 @@
     starship
     yazi
     eza
+    btop
+    go
+    rustup
+    dust
+    ripgrep
     nerd-fonts.commit-mono
   ];
 
@@ -41,6 +46,7 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
+
   };
 
   programs.bat.enable = true;

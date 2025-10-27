@@ -146,9 +146,18 @@
     else if test -x $CONDA_ROOT/bin/conda
       eval ($CONDA_ROOT/bin/conda shell.fish hook)
     end
+    function starship_transient_rprompt_func
+      starship module time
+    end
+    starship init fish | source
+    enable_transience
   '';
 
   interactiveShellInit = ''
-    # Starship handled by HM
-  '';
+    function starship_transient_rprompt_func
+      starship module time
+    end
+    starship init fish | source
+    enable_transience
+    '';
 }
