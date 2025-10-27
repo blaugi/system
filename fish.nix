@@ -3,10 +3,13 @@
   enable = true;
 
   shellAliases = {
-    ls = "eza --icons --grid --classify --colour=auto --sort=type --group-directories-first --header --modified --created --git --binary --group";
-    l = "eza";              # Keep only one definition of 'l'
-    la = "ls -a";
-    ll = "ls -lah";
+    ls="eza -al --color=always --group-directories-first --icons"; 
+    la="eza -a --color=always --group-directories-first --icons";  # all files and dirs
+    ll="eza -l --color=always --group-directories-first --icons";  # long format
+    lt="eza -aT --color=always --group-directories-first --icons"; # tree listing
+    "l."="eza -a | grep -e '^\.'"; # show only dotfiles
+
+    ".."="cd ..";
     yz = "yazi";
     n = "nvim";
     lg = "lazygit";
@@ -15,42 +18,7 @@
   };
 
   shellAbbrs = {
-    g = "git";
-    ga = "git add";
-    gaa = "git add --all";
-    gapp = "git apply";
-    gb = "git branch --verbose";
-    gbr = "git branch --verbose --remotes";
-    gbd = "git branch --delete";
-    gbD = "git branch --delete --force";
-    gc = "git commit -m";
-    gca = "git commit --amend";
-    gcl = "git clone";
-    gco = "git checkout";
-    gcot = "git checkout --theirs";
-    gd = "git diff";
-    gds = "git diff --staged";
-    gf = "git fetch";
-    gi = "git init";
-    gP = "git push";
-    gp = "git pull";
-    gr = "git reset HEAD~";
-    gR = "git restore";
-    gra = "git remote add";
-    gre = "git remote --verbose";
     gs = "git status";
-
-    ca = "cargo add";
-    cab = "cargo add --build";
-    cad = "cargo add --dev";
-    cb = "cargo build";
-    cr = "cargo run";
-    ct = "cargo test";
-    crm = "cargo remove";
-    crmb = "cargo remove --build";
-    crmd = "cargo remove --dev";
-    cc = "cargo clippy";
-    cf = "cargo fmt";
 
     uva = "uv_add";
     uvv = "uv_venv";
