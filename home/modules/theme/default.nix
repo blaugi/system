@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, isHeadless, ... }:
 
 {
+  dconf.enable = !isHeadless;
+
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
@@ -10,7 +12,7 @@
     # Because `base16Scheme` is explicitly set above, Stylix will NOT derive colors from this image—it will stay strictly Tokyo Night.
     image = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-dracula.png";
-      sha256 = "sha256-1033T7m1N6BBNT81kM5U/D6YyLzQZ4fU3kL++71e7/s=";
+      sha256 = "sha256-SykeFJXCzkeaxw06np0QkJCK28e0k30PdY8ZDVcQnh4=";
     };
 
     fonts = {
@@ -22,8 +24,11 @@
     };
 
     targets = {
-      # Disable targets you prefer to manage manually
+      gtk.enable = !isHeadless;
+      kde.enable = !isHeadless;
+      gnome.enable = !isHeadless;
       neovim.enable = false; 
+      fish.enable = !isHeadless;
     };
   };
 }

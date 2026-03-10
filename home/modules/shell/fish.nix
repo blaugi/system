@@ -120,6 +120,9 @@
       end
       starship init fish | source
       enable_transience
+
+      # FIX: Override fzf history widget to prevent Starship transience from polluting input with escape sequences
+      bind \cr 'fzf-history-widget; commandline -i " "; commandline -f backward-delete-char; commandline -f repaint'
     '';
   };
 
