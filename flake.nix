@@ -7,9 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix.url = "github:danth/stylix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs:
     let
       # Define your target system here, e.g., "x86_64-linux", "aarch64-darwin"
       system = "x86_64-linux"; 
@@ -23,12 +24,12 @@
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         
-        # Pass variables to home.nix to ensure no hardcoded paths
         extraSpecialArgs = { 
-          inherit username homeDirectory; 
+          inherit username homeDirectory inputs; 
         };
         
         modules = [
+          stylix.homeManagerModules.stylix
           ./home/default.nix
         ];
       };

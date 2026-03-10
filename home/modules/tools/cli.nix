@@ -11,13 +11,17 @@
     ripgrep
     fd
     nerd-fonts.commit-mono
+    comma
   ];
 
   programs.bat.enable = true;
   programs.yazi.enable = true;
   fonts.fontconfig.enable = true;
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
-  # Modern Tmux configuration
   programs.tmux = {
     enable = true;
     clock24 = true;

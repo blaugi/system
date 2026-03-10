@@ -11,6 +11,7 @@
     ./modules/tools/cli.nix
     ./modules/tools/git.nix
     ./modules/dev/default.nix
+    ./modules/theme/default.nix
   ];
 
   nix = {

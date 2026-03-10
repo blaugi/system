@@ -1,50 +1,50 @@
-# Home Manager Setup 
+# Home Manager Flake Setup 
 
-This repository provides a minimal [Home Manager](https://nix-community.github.io/home-manager/).
+This repository provides a modular, multi-system mapping tailored for advanced CLI productivity using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and [Home Manager](https://nix-community.github.io/home-manager/).
+
+## 🔎 fzf (Fuzzy Finding)
+
+Deep shell integration combined with `fd` and `bat` makes navigating instant.
+
+- <kbd>Ctrl</kbd>+<kbd>t</kbd> → Fuzzy find files anywhere in your directory.
+- <kbd>Ctrl</kbd>+<kbd>r</kbd> → Instantly filter and search through shell history.
+- <kbd>Alt</kbd>+<kbd>c</kbd> → Fast-jump into any subdirectory tree.
 
 ## Usage
 
 ### 1. Prerequisites
 
-- Nix and [Home Manager](https://nix-community.github.io/home-manager/index.html#sec-install-standalone) installed (no flakes needed)
-- This repo cloned or your files in `~/.config/nixpkgs/`
+- [Nix](https://nixos.org/download) installed natively.
+- Flakes must be enabled in your setup.
 
 ### 2. File Structure
 
 ```
 .
-├── home.nix
-├── fish-extra.nix
+├── flake.nix                 # Unified entry point for multi-user/multi-system configurations
+├── home/                     
+│   ├── default.nix           # Imports the targeted user's module stack
+│   └── modules/              
+│       ├── dev/default.nix   # Build stacks (Python, uv, Rust, Go)
+│       ├── shell/fish.nix    # Deep integrations for Zoxide, Fzf, Direnv
+│       ├── theme/default.nix # Universal Stylix configuration block
+│       └── tools/            # CLI utilities and standard Git integrations
 └── README.md
 ```
 
-- `home.nix`: main Home Manager configuration
-- `fish-extra.nix`: your custom fish shell setup (sourced by `home.nix`)
-- `README.md`: this file
-
 ### 3. Applying the Configuration
 
-From this directory, run:
+Deploy the Home Manager profile defined in `flake.nix` by pointing to the specific user build (e.g. `azureuser`):
 
 ```sh
-home-manager switch
+nix run home-manager/master -- switch --flake .#azureuser
 ```
-
-If your Home Manager configuration is elsewhere (like `~/.config/nixpkgs/`), copy the files there and run the same command.
 
 ---
 
 ## Notes
 
 - **Font:**  
-  Make sure to set your terminal font to **CommitMono Nerd Font** for best results (glyphs/icons). This must be done via your terminal emulator's preferences.
-
-- **Change Username/Path:**  
-  If your username or home directory is different, edit the `home.username` and `home.homeDirectory` fields in `home.nix`.
-
-- **Shell:**  
-  To make fish your default shell, run:
-  ```sh
-  chsh -s $(which fish)
-  ```
-
+  Stylix explicitly maps the system to **CommitMono Nerd Font**. Make sure your graphical host terminal emulator binds its internal text rendering to "CommitMono Nerd Font".
+- **Dynamic User Mapping:**  
+ Simply clone the target block in `flake.nix` and pass a new `username` and `homeDirectory`.
