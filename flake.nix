@@ -21,17 +21,34 @@
       # Define the home directory path. e.g. /home/${username} or /Users/${username}
       homeDirectory = "/home/${username}";
     in {
-      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        
-        extraSpecialArgs = { 
-          inherit username homeDirectory inputs; 
+      homeConfigurations = {
+        work = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          
+          extraSpecialArgs = { 
+            inherit username homeDirectory inputs; 
+            isHeadless = true;
+          };
+          
+          modules = [
+            stylix.homeModules.stylix
+            ./home/default.nix
+          ];
         };
-        
-        modules = [
-          stylix.homeManagerModules.stylix
-          ./home/default.nix
-        ];
+
+        desktop = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          
+          extraSpecialArgs = { 
+            inherit username homeDirectory inputs; 
+            isHeadless = false;
+          };
+          
+          modules = [
+            stylix.homeModules.stylix
+            ./home/default.nix
+          ];
+        };
       };
     };
 }

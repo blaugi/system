@@ -16,6 +16,7 @@
 
   programs.bat.enable = true;
   programs.yazi.enable = true;
+  programs.yazi.shellWrapperName= "yy";
   fonts.fontconfig.enable = true;
   programs.nix-index = {
     enable = true;
