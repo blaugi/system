@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, pkgsFish, ... }:
 
 {
   programs.fish = {
     enable = true;
+    package = pkgsFish.fish;
 
     shellAliases = {
       ls = "eza -al --color=always --group-directories-first --icons"; 
@@ -118,11 +119,9 @@
       function starship_transient_rprompt_func
         starship module time
       end
+
       starship init fish | source
       enable_transience
-
-      # FIX: Override fzf history widget to prevent Starship transience from polluting input with escape sequences
-      bind \cr 'fzf-history-widget; commandline -i " "; commandline -f backward-delete-char; commandline -f repaint'
     '';
   };
 
@@ -141,6 +140,7 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+    tmux.enableShellIntegration = true;
     defaultCommand = "fd --type f --hidden --exclude .git";
     defaultOptions = [
       "--height 40%"
