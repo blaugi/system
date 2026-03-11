@@ -29,6 +29,8 @@
     keyMode = "vi";
     baseIndex = 1;           # Start windows/panes at 1, not 0
     mouse = true;            # Enable mouse scrolling and clicking
+    escapeTime = 0;          # Prevent delay when using Esc and arrow keys
+    terminal = "tmux-256color"; # Fix terminfo missing application mode sequences
     plugins = with pkgs.tmuxPlugins; [
       sensible               # Sensible defaults
       resurrect              # Persist tmux sessions across computer restarts
