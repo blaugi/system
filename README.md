@@ -1,14 +1,7 @@
 # Home Manager Flake Setup 
 
-This repository provides a modular, multi-system mapping tailored for advanced CLI productivity using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and [Home Manager](https://nix-community.github.io/home-manager/).
+Simple system config using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and [Home Manager](https://nix-community.github.io/home-manager/).
 
-## 🔎 fzf (Fuzzy Finding)
-
-Deep shell integration combined with `fd` and `bat` makes navigating instant.
-
-- <kbd>Ctrl</kbd>+<kbd>t</kbd> → Fuzzy find files anywhere in your directory.
-- <kbd>Ctrl</kbd>+<kbd>r</kbd> → Instantly filter and search through shell history.
-- <kbd>Alt</kbd>+<kbd>c</kbd> → Fast-jump into any subdirectory tree.
 
 ## Usage
 
@@ -37,14 +30,9 @@ Deep shell integration combined with `fd` and `bat` makes navigating instant.
 Deploy the Home Manager profile defined in `flake.nix` by pointing to the specific user build (e.g. `azureuser`):
 
 ```sh
-nix run home-manager/master --switch --flake .#headless
+nix run home-manager/master --switch --flake .#headless 
+# or
+nix run home-manager/master --switch --flake .#desktop
 ```
 
 ---
-
-## Notes
-
-- **Font:**  
-  Stylix explicitly maps the system to **CommitMono Nerd Font**. Make sure your graphical host terminal emulator binds its internal text rendering to "CommitMono Nerd Font".
-- **Dynamic User Mapping:**  
- Simply clone the target block in `flake.nix` and pass a new `username` and `homeDirectory`.

@@ -17,7 +17,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       pkgsFish = nixpkgs-fish.legacyPackages.${system};
 
-      username = "azureuser";
+      username = "blau";
       homeDirectory = "/home/${username}";
     in {
       homeConfigurations = {
@@ -25,7 +25,9 @@
           inherit pkgs;
           
           extraSpecialArgs = { 
-            inherit username homeDirectory inputs pkgsFish; 
+            inherit inputs pkgsFish; 
+            username = "azureuser";
+            homeDirectory = "/home/azureuser";
             isHeadless = true;
           };
           
