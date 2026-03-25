@@ -37,7 +37,7 @@ Deep shell integration combined with `fd` and `bat` makes navigating instant.
 Deploy the Home Manager profile defined in `flake.nix` by pointing to the specific user build (e.g. `azureuser`):
 
 ```sh
-nix run home-manager/master -- switch --flake .#azureuser
+nix run home-manager/master --switch --flake .#headless
 ```
 
 ---

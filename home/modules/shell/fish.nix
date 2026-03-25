@@ -122,7 +122,15 @@
 
       starship init fish | source
       enable_transience
+
     '';
+
+    plugins = [
+      {
+        name = "fzf.fish";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+    ];
   };
 
   programs.zoxide = {

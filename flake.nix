@@ -13,18 +13,15 @@
 
   outputs = { self, nixpkgs, nixpkgs-fish, home-manager, stylix, ... }@inputs:
     let
-      # Define your target system here, e.g., "x86_64-linux", "aarch64-darwin"
       system = "x86_64-linux"; 
       pkgs = nixpkgs.legacyPackages.${system};
       pkgsFish = nixpkgs-fish.legacyPackages.${system};
 
-      # Define the target username here. This decouples the config from a specific user.
       username = "azureuser";
-      # Define the home directory path. e.g. /home/${username} or /Users/${username}
       homeDirectory = "/home/${username}";
     in {
       homeConfigurations = {
-        work = home-manager.lib.homeManagerConfiguration {
+        headless = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           
           extraSpecialArgs = { 
