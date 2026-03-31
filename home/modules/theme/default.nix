@@ -24,9 +24,9 @@
     };
 
     targets = {
-      gtk.enable = !isHeadless;
-      kde.enable = !isHeadless;
-      gnome.enable = !isHeadless;
+      gtk.enable = false;
+      kde.enable = false;
+      gnome.enable = false;
       neovim.enable = false; 
       fish.enable = !isHeadless;
     };
