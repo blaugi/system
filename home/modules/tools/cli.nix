@@ -28,6 +28,7 @@
     clock24 = true;
     keyMode = "vi";
     baseIndex = 1;           # Start windows/panes at 1, not 0
+    shortcut = "space";
     mouse = true;            # Enable mouse scrolling and clicking
     escapeTime = 0;          # Prevent delay when using Esc and arrow keys
     terminal = "tmux-256color"; # Fix terminfo missing application mode sequences
@@ -38,12 +39,6 @@
       vim-tmux-navigator     # Seamless navigation between tmux panes and vim splits
     ];
     extraConfig = ''
-      # Split panes using | and - (easier to remember)
-      bind | split-window -h
-      bind - split-window -v
-      unbind '"'
-      unbind %
-
       # Automatically restore tmux sessions
       set -g @continuum-restore 'on'
       

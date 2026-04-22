@@ -27,12 +27,18 @@ Simple system config using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and [Hom
 
 ### 3. Applying the Configuration
 
-Deploy the Home Manager profile defined in `flake.nix` by pointing to the specific user build (e.g. `azureuser`):
+For the initial installation:
 
 ```sh
-nix run home-manager/master --switch --flake .#headless 
-# or
-nix run home-manager/master --switch --flake .#desktop
+nix run home-manager/master -- switch --flake .#headless 
 ```
+
+Once Home Manager is installed, you can simply use:
+
+```sh
+home-manager switch --flake .#<profile>
+```
+
+Replace `<profile>` with either `headless` or `desktop` depending on your needs.
 
 ---
