@@ -14,7 +14,9 @@
   outputs = { self, nixpkgs, nixpkgs-fish, home-manager, stylix, ... }@inputs:
     let
       system = "x86_64-linux"; 
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+      };
       pkgsFish = nixpkgs-fish.legacyPackages.${system};
 
       username = "blau";
