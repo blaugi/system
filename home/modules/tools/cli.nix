@@ -2,7 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    neovim
     bat
     yazi
     eza
@@ -14,6 +13,32 @@
     comma
     csvlens
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    plugins = with pkgs.vimPlugins; [
+      telescope-nvim
+      nvim-treesitter.withAllGrammars
+      telescope-zoxide
+      barbar-nvim
+      nvim-cmp
+      obsidian-nvim
+    
+    (pkgs.vimUtils.buildVimPlugin {
+      pname = "csvlens-nvim";
+      version = "2024-04-28";
+      src = pkgs.fetchFromGitHub {
+        owner = "theKnightsOfRohan";
+        repo = "csvlens.nvim";
+        rev = "main";
+        hash = ""; 
+      };
+    })
+    ];
+  };
 
   programs.bat.enable = true;
   programs.yazi.enable = true;
