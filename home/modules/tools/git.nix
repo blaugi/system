@@ -3,6 +3,7 @@
 {
   programs=  {
     git.enable = true;
+    git.signing.format = "openpgp";
 
     delta = {
       enable = true;

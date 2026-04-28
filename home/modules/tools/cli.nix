@@ -15,6 +15,8 @@
   ];
 
   programs.neovim = {
+    withPython3 = true;
+    withRuby = false;
     enable = true;
     defaultEditor = true;
     viAlias = true;
@@ -23,21 +25,24 @@
       telescope-nvim
       nvim-treesitter.withAllGrammars
       telescope-zoxide
+      neo-tree-nvim
+
       barbar-nvim
+      nvim-web-devicons
+
       nvim-cmp
       obsidian-nvim
-    
-    (pkgs.vimUtils.buildVimPlugin {
-      pname = "csvlens-nvim";
-      version = "2024-04-28";
-      src = pkgs.fetchFromGitHub {
-        owner = "theKnightsOfRohan";
-        repo = "csvlens.nvim";
-        rev = "main";
-        hash = ""; 
-      };
-    })
     ];
+
+    # ill use as is and incrementually grow this into something
+  
+    initLua = ''
+    vim.g.mapleader = " "
+
+    vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+    vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Live grep" })
+    vim.keymap.set("n", "<leader>e", "<cmd>Yazi<CR>", { desc = "Open Yazi" })
+  '';
   };
 
   programs.bat.enable = true;
