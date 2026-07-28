@@ -1,16 +1,16 @@
 {
-  description = "Portable Home Manager Flake";
-
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-fish.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix.url = "github:danth/stylix";
+    den.url = "github:denful/den";
+    import-tree.url = "github:denful/import-tree";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
+<<<<<<< HEAD
   outputs = { self, nixpkgs, nixpkgs-fish, home-manager, stylix, ... }@inputs:
     let
       system = "x86_64-linux"; 
@@ -52,6 +52,15 @@
             ./home/default.nix
           ];
         };
+=======
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.den.flakeModule
+        (inputs.import-tree ./modules)
+      ];
+      systems = [ "x86_64-linux" ]
+>>>>>>> 73f0a73 (sync progress)
       };
     };
 }
