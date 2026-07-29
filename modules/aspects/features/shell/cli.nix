@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.shell.cli = {
+  den.aspects.shell = {
     homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [
         bat

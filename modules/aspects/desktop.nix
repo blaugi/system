@@ -2,10 +2,10 @@
 {
   den.aspects.desktop = {
     includes = [
-      den.aspects.base
       den.aspects.shell
-      den.aspects.graphical
-      den.aspects.editors
+      den.aspects.editors.zed
+      den.aspects.editors.nvim
+      den.aspects.dev
     ];
   };
 }

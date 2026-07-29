@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -10,13 +10,13 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.den.flakeModule
         (inputs.import-tree ./modules)
       ];
-      systems = [ "x86_64-linux" ]
-      };
+      systems = [ "x86_64-linux" ];
     };
 }

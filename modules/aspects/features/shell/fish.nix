@@ -4,19 +4,12 @@
   ...
 }:
 {
-  den.aspects.shell.fish = {
+  den.aspects.shell = {
     homeManager =
       { pkgs, ... }:
-      let
-        pkgsFish = import inputs.nixpkgs-fish {
-          inherit (pkgs.stdenv.hostPlatform) system;
-        };
-      in
       {
         programs.fish = {
           enable = true;
-          package = pkgsFish.fish;
-
           shellAliases = {
             ls = "eza -al --color=always --group-directories-first --icons";
             la = "eza -a --color=always --group-directories-first --icons";

@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.shell.fzf = {
+  den.aspects.shell = {
     homeManager = { ... }: {
       programs.fzf = {
         enable = true;

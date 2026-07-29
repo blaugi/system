@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.shell.starship = {
+  den.aspects.shell = {
     homeManager = { ... }: {
       programs.starship = {
         enable = true;

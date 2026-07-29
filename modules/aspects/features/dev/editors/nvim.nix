@@ -1,7 +1,7 @@
-{den, ...}:
+{ den, ... }:
 {
   den.aspects.editors.nvim = {
-    homeManager = {pkgs, ...}:{
+    homeManager = { pkgs, ... }: {
       programs.neovim = {
         withPython3 = true;
         withRuby = false;

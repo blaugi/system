@@ -1,11 +1,14 @@
 { den, ... }:
 {
-  den.aspects.shell.zoxide = {
+  den.aspects.shell = {
     homeManager = { ... }: {
       programs.zoxide = {
         enable = true;
         enableFishIntegration = true;
-        options = [ "--cmd" "cd" ];
+        options = [
+          "--cmd"
+          "cd"
+        ];
       };
     };
   };

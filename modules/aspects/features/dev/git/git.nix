@@ -3,35 +3,15 @@
   ...
 }:
 {
-  den.aspects.dev.git = {
+  den.aspects.dev = {
     homeManager =
-    { config, ... }:
-    {
-      programs = {
-        git = {
-          enable = true;
-
-          branch = {
-            autosetuprebase = "always";
-          };
-
-          color = {
-            ui = "auto";
-          };
-
-          commit = {
-            gpgsign = true;
-          };
-
-          diff = {
-            mnemonicprefix = true;
-          };
-
-          init = {
-            defaultBranch = "main";
+      { config, ... }:
+      {
+        programs = {
+          git = {
+            enable = true;
           };
         };
       };
-    };
   };
-};
+}

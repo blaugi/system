@@ -1,8 +1,9 @@
 {
   den,
   ...
-}: {
-  den.aspects.dev.git = {
+}:
+{
+  den.aspects.dev = {
     homeManager = {
       programs = {
         lazygit = {
