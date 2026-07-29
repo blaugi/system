@@ -2,8 +2,8 @@
 {
   den.aspects.headless = {
     includes = [
-      den.aspects.base
-      den.aspects.cli
+      den.aspects.shell
+
     ];
   };
 }

@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  den.aspects = {
+  den.aspects.editors = {
     zed = {
       homeManager = {
         pkgs,

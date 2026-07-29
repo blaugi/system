@@ -3,8 +3,9 @@
   den.aspects.desktop = {
     includes = [
       den.aspects.base
-      den.aspects.cli
+      den.aspects.shell
       den.aspects.graphical
+      den.aspects.editors
     ];
   };
 }

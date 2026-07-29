@@ -2,7 +2,7 @@
 {
   den.homes.x86_64-linux.vm = {
     aspect = "headless";          # ← uses the composition above
-    # userName = "alice";         # optional
+    userName = "azureuser";         # optional
   };
 
   # Main machines

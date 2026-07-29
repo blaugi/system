@@ -1,15 +1,15 @@
 { den, ... }:
 {
-  den.aspects.cli = {
+  den.aspects.shell.cli = {
     homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [
-        htop
+        bat
+        yazi
+        eza
+        btop
+        dust
         ripgrep
         fd
-        bat
-        eza
-        fzf
-        tmux
       ];
     };
   };
