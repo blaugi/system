@@ -1,64 +1,42 @@
 # Home Manager Flake Setup
 
-Simple system config using [Nix Flakes](https://nixos.wiki/wiki/Flakes), [flake-parts](https://flake.parts/), and [Home Manager](https://nix-community.github.io/home-manager/), organized using the [dendritic pattern](https://github.com/mightyiam/dendritic).
+Personal system config using [Nix Flakes](https://nixos.wiki/wiki/Flakes), [flake-parts](https://flake.parts/), [Home Manager](https://nix-community.github.io/home-manager/), and [den](https://github.com/denful/den).
 
-## Usage
-
-### 1. Prerequisites
-
-- [Nix](https://docs.determinate.systems/determinate-nix/) installed natively.
-- Flakes must be enabled in your setup.
-
-### 2. File Structure
+## Structure
 
 ```
-.
-├── flake.nix                              # Entry point: flake-parts + import-tree ./modules
-├── flake copy.nix                         # Backup of the old, pre-dendritic flake (not evaluated)
-└── modules/                                # Every .nix file here is auto-imported (vic/import-tree)
-    ├── options.nix                         # Declares the `flake.modules.<class>.<aspect>` option
-    └── home-manager/
-        ├── shell-fish.nix                  # flake.modules.homeManager.shell-fish
-        ├── tools-cli.nix                   # flake.modules.homeManager.tools-cli
-        ├── tools-git.nix                   # flake.modules.homeManager.tools-git
-        ├── theme.nix                       # flake.modules.homeManager.theme (Stylix)
-        ├── editors-zed.nix                 # flake.modules.homeManager.editors-zed
-        ├── base.nix                        # flake.modules.homeManager.base (aggregates the above)
-        └── configurations.nix              # Builds flake.homeConfigurations.{headless,desktop}
+flake.nix
+└── modules/
+    ├── homes.nix               # User/host definitions (vm, laptop, desktop)
+    └── aspects/
+        ├── desktop.nix
+        ├── fonts.nix
+        ├── vm.nix
+        └── features/
+            ├── dev/
+            │   ├── editors/    # nvim, zed
+            │   └── git/        # git, gh, lazygit
+            └── shell/          # fish, starship, tmux, fzf, zoxide, cli
 ```
 
-Each file under `modules/` is itself a flake-parts module. Instead of hand-written
-`imports` lists, every "aspect" (fish shell, CLI tools, git tooling, theming, editor
-config, ...) registers itself under `flake.modules.homeManager.<name>`. `base.nix`
-pulls the named aspects back together via `config.flake.modules.homeManager.*`, and
-`configurations.nix` feeds the assembled `base` module into
-`home-manager.lib.homeManagerConfiguration` to produce the `headless` and `desktop`
-profiles. See `modules/options.nix` for the option declaration that makes this
-merging safe.
+All `.nix` files under `modules/` are auto-imported via `import-tree`. Profiles (`vm`, `laptop`, `desktop`) are defined in `homes.nix` using den's `den.homes` option.
 
-### 3. Applying the Configuration
+## Prerequisites
 
-<<<<<<< HEAD
-For the initial installation:
+- [Nix](https://docs.determinate.systems/determinate-nix/) with flakes enabled
+
+## Initial Setup (first time on a machine)
+
+`home-manager` is not yet on `$PATH`, so bootstrap with:
 
 ```sh
-nix run home-manager/master -- switch --flake .#headless 
-=======
-Deploy the Home Manager profile defined by the flake (e.g. `desktop`):
-
-```sh
-nix run home-manager/master -- switch --flake .#headless
-# or
-nix run home-manager/master -- switch --flake .#desktop
->>>>>>> 73f0a73 (sync progress)
+nix run 'nixpkgs#home-manager' -- switch --flake .#<profile>
 ```
 
-Once Home Manager is installed, you can simply use:
+This installs Home Manager and applies the configuration. After this, use the installed CLI:
 
 ```sh
 home-manager switch --flake .#<profile>
 ```
 
-Replace `<profile>` with either `headless` or `desktop` depending on your needs.
-
----
+Available profiles: `vm`, `laptop`, `desktop`.

@@ -10,6 +10,7 @@
         dust
         ripgrep
         fd
+        home-manager
       ];
     };
   };

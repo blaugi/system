@@ -125,7 +125,6 @@
               starship module time
             end
 
-            enable_transience
 
           '';
 
