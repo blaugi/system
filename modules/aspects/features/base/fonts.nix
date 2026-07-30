@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop = {
+  den.aspects.base= {
     homeManager = { pkgs, ... }: {
       fonts.fontconfig = {
         enable = true;

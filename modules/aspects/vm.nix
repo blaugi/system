@@ -5,6 +5,7 @@
       den.aspects.editors.nvim
       den.aspects.dev
       den.aspects.shell
+      den.aspects.base
     ];
   };
 }
