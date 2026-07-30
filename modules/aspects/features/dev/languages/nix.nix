@@ -1,9 +1,9 @@
 {
   den.aspects.dev = {
-     homeManager = { pkgs, ... }: {
+    homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [
-       nixfmt 
-      ]
-      };
+        nixfmt
+      ];
     };
+  };
 }

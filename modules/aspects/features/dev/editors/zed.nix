@@ -1,6 +1,5 @@
 {
   den,
-  inputs,
   ...
 }:
 {
@@ -12,13 +11,6 @@
           config,
           ...
         }:
-        let
-          hd = config.my.hostSettings;
-          pkgs-zed = import inputs.nixpkgs-zed {
-            inherit (pkgs.stdenv.hostPlatform) system;
-            config.allowUnfree = true;
-          };
-        in
         {
           home.packages = with pkgs; [
             nixd
@@ -33,7 +25,7 @@
           ];
           programs.zed-editor = {
             enable = true;
-            package = pkgs-zed.zed-editor;
+            package = pkgs.zed-editor;
             extensions = [
               "nix"
               "dockerfile"
@@ -42,7 +34,6 @@
               "markdown-oxide"
               "toml"
               "typos"
-              "sqlruff"
               "csv"
               "basedpyright"
               "ty"

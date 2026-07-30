@@ -1,4 +1,3 @@
-{ ... }:
 {
   den.aspects.desktop = {
     homeManager = { pkgs, ... }: {

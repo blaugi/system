@@ -1,8 +1,4 @@
 {
-  den,
-  ...
-}:
-{
   den.aspects.dev = {
     homeManager =
       { config, ... }:
