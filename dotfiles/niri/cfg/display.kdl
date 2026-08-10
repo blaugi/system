@@ -1,0 +1,26 @@
+// ────────────── Output Configuration ──────────────
+// You can run `niri msg outputs` to get the correct name for your displays.
+// You will have to remove "/-" and edit it before it takes effect.
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
+
+/- output "DP-1" {
+    mode "2560x1440@359.979" // Set resolution and refresh rate
+    scale 1 // No scaling (use 2 for HiDPI)
+}
+
+window-rule {
+    match app-id="^com.mitchellh.ghostty$"
+
+    background-effect {
+        blur true
+    }
+}
+
+// Enable blur behind the fuzzel launcher.
+layer-rule {
+    match namespace="^launcher$"
+
+    background-effect {
+        blur true
+    }
+}
