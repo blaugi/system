@@ -9,6 +9,7 @@
         viAlias = true;
         vimAlias = true;
         plugins = with pkgs.vimPlugins; [
+	  transparent-nvim
           telescope-nvim
           nvim-treesitter.withAllGrammars
           telescope-zoxide

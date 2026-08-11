@@ -1,59 +1,21 @@
 {
-  den,
-  ...
-}:
-{
   den.aspects.editors = {
     zed = {
       homeManager =
         {
           pkgs,
-          config,
           ...
         }:
         {
-          home.packages = with pkgs; [
-            nixd
-            nil
-            zls
-            cargo
-            rustc
-            rust-analyzer
-            clippy
-            typos
-            typos-lsp
-          ];
           programs.zed-editor = {
             enable = true;
             package = pkgs.zed-editor;
             extensions = [
               "nix"
-              "dockerfile"
-              "docker-compose"
               "git-firefly"
               "markdown-oxide"
-              "toml"
               "typos"
-              "csv"
-              "basedpyright"
-              "ty"
               "tokyo-night-dark"
-            ];
-            userKeymaps = [
-              {
-                context = "Editor && edit_prediction";
-                bindings = {
-                  "tab" = "editor::AcceptEditPrediction";
-                  "alt-l" = null;
-                };
-              }
-              {
-                context = "Editor && edit_prediction_conflict";
-                bindings = {
-                  "alt-tab" = "editor::AcceptEditPrediction";
-                  "alt-l" = null;
-                };
-              }
             ];
             userSettings = {
               auto_update = false;
@@ -66,12 +28,10 @@
               double_click_in_multibuffer = "open";
               theme = {
                 mode = "system";
+                dark = "tokyo-night-dark";
+                light = "One Light";
               };
               current_line_highlight = "line";
-              tabs = {
-                file_icons = true;
-                git_status = true;
-              };
               terminal = {
                 line_height = "standard";
                 env = { };

@@ -9,7 +9,7 @@
   # Main machines
   den.homes.x86_64-linux.laptop = {
     aspect = den.aspects.desktop;
-    userName = "blau";
+    userName = "blauzin";
     home.homeDirectory = "/home/blau";
   };
 

@@ -16,6 +16,16 @@ window-rule {
     }
 }
 
+
+
+window-rule {
+    match app-id="^zen"
+
+    background-effect {
+        blur true
+    }
+}
+
 // Enable blur behind the fuzzel launcher.
 layer-rule {
     match namespace="^launcher$"
@@ -24,3 +34,4 @@ layer-rule {
         blur true
     }
 }
+
