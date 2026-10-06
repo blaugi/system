@@ -4,6 +4,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Use the terminal's palette instead of GUI truecolor highlights.
+vim.opt.termguicolors = false
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
@@ -27,3 +30,20 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostics to location list" })
 
 require("plugins")
+vim.cmd.colorscheme("default")
+
+-- Keep Neovim's main editing surfaces transparent so the terminal background
+-- shows through. Reapply if a colorscheme changes later.
+local function make_background_transparent()
+  for _, group in ipairs({
+    "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
+    "LineNr", "FoldColumn", "MsgArea", "FloatBorder",
+  }) do
+    vim.api.nvim_set_hl(0, group, { bg = "NONE" })
+  end
+end
+
+make_background_transparent()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = make_background_transparent,
+})

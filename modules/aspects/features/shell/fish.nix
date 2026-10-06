@@ -11,13 +11,11 @@
         programs.fish = {
           enable = true;
           shellAliases = {
-            ls = "eza -al --color=always --group-directories-first --icons";
-            la = "eza -a --color=always --group-directories-first --icons";
-            ll = "eza -l --color=always --group-directories-first --icons";
-            lt = "eza -aT --color=always --group-directories-first --icons";
-            "l." = "eza -a | grep -e '^\\.'";
+            ls = "eza -al";
+            la = "eza -a";
+            ll = "eza -l";
+            lt = "eza -aT";
 
-            ".." = "cd ..";
             yz = "yazi";
             n = "nvim";
             lg = "lazygit";
@@ -31,7 +29,7 @@
             uvv = "uv_venv";
             uvva = "uv_env_activate";
             coder = "code -r .";
-            t = "tree";
+	    zedr = "zeditor -r .";
           };
 
           functions = {

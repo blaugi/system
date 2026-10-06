@@ -7,7 +7,6 @@
         clock24 = true;
         keyMode = "vi";
         baseIndex = 1;
-        shortcut = "space";
         mouse = true;
         escapeTime = 0;
         terminal = "tmux-256color";
@@ -27,16 +26,6 @@
           bind r source-file ~/.config/tmux/tmux.conf \; display-message "Tmux config reloaded."
 
           set-option -g renumber-windows on
-
-          # Theme: borders
-          set -g pane-border-lines simple
-          set -g pane-border-style fg=black,bright
-          set -g pane-active-border-style fg=magenta
-
-          # Theme: status
-          set -g status-style bg=default,fg=black,bright
-          set -g status-left ""
-          set -g status-right "#[fg=black,bright]#S"
         '';
       };
     };

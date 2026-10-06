@@ -9,6 +9,7 @@ TARGET_DIR="${HOME}/.config"
 # List all app folder names you want to manage
 CONFIGS=(
   "niri"
+  "nvim"
 )
 
 mkdir -p "$TARGET_DIR"
@@ -23,6 +24,6 @@ for config in "${CONFIGS[@]}"; do
   fi
 
   # Symlink the entire application folder at once
-  ln -sfn "$SRC" "$DEST"
+  ln -sfnT "$SRC" "$DEST"
   echo "Linked: $config -> $DEST"
 done
