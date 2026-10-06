@@ -1,5 +1,6 @@
 vim.pack.add { 
   'https://github.com/ollykel/v-vim',
+  'https://github.com/ibhagwan/fzf-lua',
   'https://github.com/saghen/blink.cmp',
   'https://github.com/saghen/blink.lib',
   'https://github.com/alaviss/nim.nvim',

@@ -105,17 +105,18 @@
 
           shellInit = ''
             set -l hmvars "$HOME/.nix-profile/etc/profile.d/hm-session-vars.fish"
-            if test -f $hmvars
-              source $hmvars
-            end
+		  if test -f $hmvars
+		    source $hmvars
+		  end
 
-            set -gx CONDA_AUTO_ACTIVATE_BASE false
-            set -gx CONDA_ROOT /anaconda
-            if test -f $CONDA_ROOT/etc/fish/conf.d/conda.fish
-              source $CONDA_ROOT/etc/fish/conf.d/conda.fish
-            else if test -x $CONDA_ROOT/bin/conda
-              eval ($CONDA_ROOT/bin/conda shell.fish hook)
-            end
+		  set -gx CONDA_AUTO_ACTIVATE_BASE false
+		  set -gx CONDA_ROOT "$HOME/miniconda3"
+
+		  if test -f $CONDA_ROOT/etc/fish/conf.d/conda.fish
+		    source $CONDA_ROOT/etc/fish/conf.d/conda.fish
+		  else if test -x $CONDA_ROOT/bin/conda
+		    eval ($CONDA_ROOT/bin/conda shell.fish hook)
+		  end
           '';
 
           interactiveShellInit = ''

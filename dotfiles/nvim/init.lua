@@ -28,6 +28,7 @@ vim.opt.confirm = true
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostics to location list" })
+vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>")
 
 require("plugins")
 vim.cmd.colorscheme("default")
